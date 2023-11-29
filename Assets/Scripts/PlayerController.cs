@@ -11,8 +11,14 @@ public class PlayerController : MonoBehaviour
     private bool gameOver = false;
     public Vector3 direction = Vector3.forward;
 
-    private float horizontalInput;
-    
+   public float horizontalInput;
+    public float verticalInput;
+
+    private Quaternion forward = Quaternion.identity;
+    private Quaternion back = Quaternion.Euler(0, 180, 0);
+    private Quaternion left = Quaternion.Euler(0, -90, 0);
+    private Quaternion right = Quaternion.Euler(0, 90, 0);
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +33,28 @@ public class PlayerController : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
 
         horizontalInput = Input.GetAxis("Horizontal");
-        if(horizontalInput == 1)
+        if(horizontalInput > 0.1f)
         {
-            direction = Vector3.right;
+            //direction = Vector3.right;
+            transform.rotation = right;
+        }
+        if(horizontalInput < -0.1f)
+        {
+            //direction = Vector3.left;
+            transform.rotation = left;
         }
 
+        verticalInput = Input.GetAxis("Vertical");
+        if(verticalInput > 0.1f)
+        {
+            //direction = Vector3.forward;
+            transform.rotation = forward;
+        }
+        if(verticalInput < -0.1f)
+        {
+            //direction = Vector3.back;
+            transform.rotation = back;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
