@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private bool gameOver = false;
     public Vector3 direction = Vector3.forward;
 
-   public float horizontalInput;
+    public float horizontalInput;
     public float verticalInput;
 
     private Quaternion forward = Quaternion.identity;
