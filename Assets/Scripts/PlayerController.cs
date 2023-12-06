@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,6 +64,16 @@ public class PlayerController : MonoBehaviour
         {
             gameOver = true;
             playerAnim.SetBool("Death", true);
+        }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Collided with Wall");
+            Vector3 normal = collision.contacts[0].normal;
+            // Calculate a position adjustment vector
+            Vector3 adjustment = normal * 2f;
+
+            // Move Pac-Man to a new position just outside the wall
+            transform.position += adjustment;
         }
     }
 }
