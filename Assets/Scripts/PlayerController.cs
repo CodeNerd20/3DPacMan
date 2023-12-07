@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ghost"))
         {
+            Debug.Log("Pac-Man Died");
             gameOver = true;
             playerAnim.SetBool("Death", true);
         }
