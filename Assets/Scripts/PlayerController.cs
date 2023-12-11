@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,41 +22,48 @@ public class PlayerController : MonoBehaviour
     private Quaternion left = Quaternion.Euler(0, -90, 0);
     private Quaternion right = Quaternion.Euler(0, 90, 0);
 
+    public GameManager gameManager;
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+        gameManager =GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        if (gameManager.isGameActive)
+        {
+            transform.Translate(direction * speed * Time.deltaTime);
 
-        horizontalInput = Input.GetAxis("Horizontal");
-        if(horizontalInput > 0.1f)
-        {
-            //direction = Vector3.right;
-            transform.rotation = right;
-        }
-        if(horizontalInput < -0.1f)
-        {
-            //direction = Vector3.left;
-            transform.rotation = left;
-        }
+            horizontalInput = Input.GetAxis("Horizontal");
+            if (horizontalInput > 0.1f)
+            {
+                //direction = Vector3.right;
+                transform.rotation = right;
+            }
+            if (horizontalInput < -0.1f)
+            {
+                //direction = Vector3.left;
+                transform.rotation = left;
+            }
 
-        verticalInput = Input.GetAxis("Vertical");
-        if(verticalInput > 0.1f)
-        {
-            //direction = Vector3.forward;
-            transform.rotation = forward;
-        }
-        if(verticalInput < -0.1f)
-        {
-            //direction = Vector3.back;
-            transform.rotation = back;
+            verticalInput = Input.GetAxis("Vertical");
+            if (verticalInput > 0.1f)
+            {
+                //direction = Vector3.forward;
+                transform.rotation = forward;
+            }
+            if (verticalInput < -0.1f)
+            {
+                //direction = Vector3.back;
+                transform.rotation = back;
+            }
         }
     }
 
@@ -65,6 +74,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Pac-Man Died");
             gameOver = true;
             playerAnim.SetBool("Death", true);
+            gameManager.GameOver();
         }
         if (collision.gameObject.CompareTag("Wall"))
         {
@@ -77,4 +87,6 @@ public class PlayerController : MonoBehaviour
             transform.position += adjustment;
         }
     }
-}
+
+}  
+
