@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
                 //direction = Vector3.back;
                 transform.rotation = back;
             }
+
+            
         }
     }
 

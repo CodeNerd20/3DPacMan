@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,7 +33,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(restartButton.isActiveAndEnabled && Input.GetButtonDown("Restart"))
+        {
+            RestartGame();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -60,7 +64,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("RESTART THE GAME ETHAN!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (Input.GetButtonDown("Restart"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }
 

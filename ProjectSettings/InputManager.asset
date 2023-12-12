@@ -38,11 +38,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Shoot
+    m_Name: Restart
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: space
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: joystick button 0
     gravity: 1000
