@@ -8,6 +8,7 @@ TagManager:
   - Teleporter
   - Wall
   - Pellet
+  - Powerup
   layers:
   - Default
   - TransparentFX

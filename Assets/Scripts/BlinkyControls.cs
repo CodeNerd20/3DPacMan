@@ -12,8 +12,13 @@ public class BlinkyControls : MonoBehaviour
 
     public Vector3 randomDirection;
 
+    private Rigidbody blinkyrb;
+    private GameObject player;
+
     void Start()
     {
+        blinkyrb = GetComponent<Rigidbody>();
+        player = GameObject.Find("Player");
         blinkyTransform = transform;
         StartCoroutine(RandomMovement());
     }
@@ -33,10 +38,13 @@ public class BlinkyControls : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Move the character in the random direction
         blinkyTransform.Translate(randomDirection * moveSpeed * Time.deltaTime, Space.World);
+
+        Vector3 lookDirection = (player.transform.position - transform.position).normalized;
+        blinkyrb.AddForce(lookDirection * moveSpeed);
     }
 
     private void OnCollisionEnter(Collision collision)

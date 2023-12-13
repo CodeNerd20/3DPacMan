@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public Button restartButton;
 
+    [Header("Ghosts")]
+    public InkyControls inky;
+    public BlinkyControls blinky;
+    public PinkyControls pinky;
+    public ClydeControls clyde;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +74,11 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void ScareGhosts()
+    {
+        Debug.Log("SCARE THE GHOSTS");
     }
 }
 

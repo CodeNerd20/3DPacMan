@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour
     private Quaternion right = Quaternion.Euler(0, 90, 0);
 
     public GameManager gameManager;
-    
+
+    public bool hasPowerUp;
+    public int value;
+
 
 
     // Start is called before the first frame update
@@ -90,5 +93,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Powerup"))
+        {
+            Debug.Log("Got Power-Up");
+            hasPowerUp = true;
+            Destroy(other.gameObject);
+            gameManager.UpdateScore(value);
+            gameManager.ScareGhosts();
+        }
+    }
 }  
 
