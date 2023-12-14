@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Pellet
   - Powerup
+  - Scared
   layers:
   - Default
   - TransparentFX

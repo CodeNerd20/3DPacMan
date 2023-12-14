@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlinkyControls : MonoBehaviour
@@ -7,6 +8,9 @@ public class BlinkyControls : MonoBehaviour
     public float moveSpeed = 17.5f;
     public float turnSpeed = 180f;
     public float changeDirectionInterval = 2f; // Time interval to change direction
+    public Transform GhostSpawn;
+    public int value;
+    public GameManager gm;
 
     private Transform blinkyTransform;
 
@@ -15,12 +19,21 @@ public class BlinkyControls : MonoBehaviour
     private Rigidbody blinkyrb;
     private GameObject player;
 
+    [Header("OMG I SCARED")]
+    public GameObject normalModel;
+    public GameObject scaredModel;
+    public float scaredTime;
+    public bool isScared;
+
     void Start()
     {
+        isScared = false;
         blinkyrb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         blinkyTransform = transform;
         StartCoroutine(RandomMovement());
+        StopBeingAWussy();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     IEnumerator RandomMovement()
@@ -56,6 +69,38 @@ public class BlinkyControls : MonoBehaviour
             Vector3 adjustment = normal * 2f;
             transform.position += adjustment;
         }
+
+        if(collision.gameObject.CompareTag("Player") && isScared)
+        {
+            Teleport(collision.transform);
+            gm.UpdateScore(value);
+            Destroy(blinkyrb);
+        }
+    }
+
+    private void Teleport(Transform blinky)
+    {
+        blinky.position = GhostSpawn.position;
     }
     
+    public void GetScared()
+    {
+        normalModel.SetActive(false);
+        scaredModel.SetActive(true);
+        isScared = true;
+    }
+
+    public void StopBeingAWussy()
+    {
+        scaredModel.SetActive(false);
+        normalModel.SetActive(true);
+        StartCoroutine(ScaredTime());
+        isScared = false;
+    }
+    IEnumerator ScaredTime()
+    {
+        yield return new WaitForSeconds(scaredTime);
+        StopBeingAWussy();
+    }
+  
 }

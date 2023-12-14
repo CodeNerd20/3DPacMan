@@ -9,6 +9,10 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     public GameObject pellet;
+    public bool hasPowerup;
+    public GameObject Player;
+    public bool isActive;
+    public GameObject ScaredGhost;
 
     //Scoring
     private int score;
@@ -25,6 +29,7 @@ public class GameManager : MonoBehaviour
     public BlinkyControls blinky;
     public PinkyControls pinky;
     public ClydeControls clyde;
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +84,10 @@ public class GameManager : MonoBehaviour
     public void ScareGhosts()
     {
         Debug.Log("SCARE THE GHOSTS");
+        blinky.GetScared();
+        inky.GetScared();
+        pinky.GetScared();
+        clyde.GetScared();
     }
 }
 

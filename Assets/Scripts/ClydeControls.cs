@@ -12,10 +12,16 @@ public class ClydeControls : MonoBehaviour
 
     public Vector3 randomDirection;
 
+    [Header("OMG I SCARED")]
+    public GameObject normalModel;
+    public GameObject scaredModel;
+    public float scaredTime;
+
     void Start()
     {
         clydeTransform = transform;
         StartCoroutine(RandomMovement());
+        StopBeingAWussy();
     }
 
     IEnumerator RandomMovement()
@@ -45,5 +51,24 @@ public class ClydeControls : MonoBehaviour
             Vector3 adjustment = normal * 2f;
             transform.position += adjustment;
         }
+    }
+
+    public void GetScared()
+    {
+        normalModel.SetActive(false);
+        scaredModel.SetActive(true);
+    }
+
+    public void StopBeingAWussy()
+    {
+        scaredModel.SetActive(false);
+        normalModel.SetActive(true);
+        StartCoroutine(ScaredTime());
+    }
+
+    IEnumerator ScaredTime()
+    {
+        yield return new WaitForSeconds(scaredTime);
+        StopBeingAWussy();
     }
 }
