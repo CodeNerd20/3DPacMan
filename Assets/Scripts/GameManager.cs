@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public PinkyControls pinky;
     public ClydeControls clyde;
 
+    public Pellets[] pellets;
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
 
         isGameActive = true;
+        pellets = GameObject.FindObjectsOfType<pellet>;
     }
 
     // Update is called once per frame
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
         inky.GetScared();
         pinky.GetScared();
         clyde.GetScared();
+        //Don't let them kill you when you touch them
     }
 }
 
