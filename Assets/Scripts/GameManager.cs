@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public bool isActive;
     public GameObject ScaredGhost;
+    public Button NewGameButton;
+    public TextMeshProUGUI youWinText;
 
     //Scoring
     private int score;
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     public PinkyControls pinky;
     public ClydeControls clyde;
 
-    public Pellets[] pellets;
+    public Dot[] dots;
 
 
     // Start is called before the first frame update
@@ -41,13 +43,20 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
 
         isGameActive = true;
-        pellets = GameObject.FindObjectsOfType<pellet>;
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(restartButton.isActiveAndEnabled && Input.GetButtonDown("Restart"))
+        dots = GameObject.FindObjectsOfType<Dot>();
+        if(dots.Length == 0)
+        {
+            //&& NewGameButton.isActiveAndEnabled && Input.GetButtonDown("NewGame")
+            YouWin();
+        }
+
+        if (restartButton.isActiveAndEnabled && Input.GetButtonDown("Restart"))
         {
             RestartGame();
         }
@@ -75,13 +84,22 @@ public class GameManager : MonoBehaviour
         restartButton.gameObject.SetActive(true);
     }
 
+    public void YouWin()
+    {
+        youWinText.gameObject.SetActive(true);
+        isGameActive = false;
+        NewGameButton.gameObject.SetActive(true);
+        if (Input.GetButtonDown("NewGame"))
+        {
+            RestartGame();
+        }
+    }
+
     public void RestartGame()
     {
         Debug.Log("RESTART THE GAME ETHAN!");
-        if (Input.GetButtonDown("Restart"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ScareGhosts()
@@ -91,7 +109,7 @@ public class GameManager : MonoBehaviour
         inky.GetScared();
         pinky.GetScared();
         clyde.GetScared();
-        //Don't let them kill you when you touch them
+        //Don't let them kill you when you touch them while scared is active
     }
 }
 

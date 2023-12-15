@@ -36,7 +36,7 @@ public class ClydeControls : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Move the character in the random direction
         clydeTransform.Translate(randomDirection * moveSpeed * Time.deltaTime, Space.World);

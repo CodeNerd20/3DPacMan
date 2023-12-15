@@ -36,7 +36,7 @@ public class PinkyControls : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Move the character in the random direction
         pinkyTransform.Translate(randomDirection * moveSpeed * Time.deltaTime, Space.World);

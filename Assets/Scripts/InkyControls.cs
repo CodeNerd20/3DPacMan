@@ -36,7 +36,7 @@ public class InkyControls : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Move the character in the random direction
         inkyTransform.Translate(randomDirection * moveSpeed * Time.deltaTime, Space.World);
